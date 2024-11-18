@@ -1,0 +1,21 @@
+name: workflow repos
+
+on:
+  workflow_dispatch
+
+jobs: 
+  repo_job_example:
+    name: my repo job
+    runs-on: ubuntu-latest
+    steps:
+      - name: our first repo step
+        id: stepid
+        run: echo "This is me Nimbroko giving a hail"
+      - name: our 1st repo second step
+        id: stepid2
+        run: echo "It is importatnt to say hail"
+      - name: our 1st repo third step
+        id:  shellstep 
+        shell: python
+        run:  print("deveops tests by Nimbroko using python shell")
+    
