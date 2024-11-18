@@ -1,0 +1,29 @@
+name: auto-merge-queue
+
+on:
+  schedule:
+    - cron: "*/5 * * * *" # run every 5 minutes
+  workflow_dispatch:
+
+concurrency:
+  group: auto-merge
+  cancel-in-progress: false
+
+jobs:
+  auto-merge-queue:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          fetch-depth: '1'
+
+      - name: Auto-merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ci/add-pr-to-merge-queue.py
